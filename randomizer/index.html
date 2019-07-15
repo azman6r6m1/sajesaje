@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#076554">
+    <title>Random Generator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <h1>Random Generator</h1>
+      <div class="sub">
+        <label><input type="checkbox" id="cbLowercase" onchange="reset()" checked>abc</label><span class="gap"></span>
+        <label><input type="checkbox" id="cbUppercase" onchange="reset()" checked>ABC</label><span class="gap"></span>
+        <label><input type="checkbox" id="cbNumber" onchange="reset()" checked>123</label><span class="gap"></span>
+        <label><input type="checkbox" id="cbSymbol" onchange="reset()" checked>&amp;%#</label><br><br>
+        <label><input type="checkbox" id="cbUnique" onchange="reset()">Unique</label><span class="gap"></span>
+        <label>Exclude <input type="text" id="itExclude" onblur="reset()"></label><br><br>
+        <label>Length <input type="number" id="itLength" value="10" onblur="reset()"></label><br><br>
+        <input type="button" value="Generate" onclick="generate()"><span class="gap">
+        <input type="button" id="ibCopy" value="Copy" onclick="copy()"><br><br>
+        <span>Result:</span><br>
+        <input type="text" readonly id="itOutput" onclick="copy()"><br><br>
+        <span>Source:</span>
+        <div id="dSelectedChars"></div>
+      </div>
+    </div>
+    <script type="application/javascript" src="script.js"></script>
+  </body>
+</html>

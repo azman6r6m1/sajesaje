@@ -1,0 +1,39 @@
+* {
+  font-family: "Courier New", Courier, monospace;
+}
+body {
+  margin: 0;
+}
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+.main {
+  text-align: center;
+}
+.sub {
+  display: inline-block;
+  width: 80%;
+}
+.gap {
+  padding-right: 1rem;
+}
+#itExclude {
+  width: 7rem;
+  text-align: center;
+}
+#itLength {
+  width: 3rem;
+  text-align: center;
+}
+#itOutput {
+  text-align: center;
+  width: 90%;
+  padding: 1rem;
+  border: 1px grey dashed;
+  user-select: none;
+}
+#dSelectedChars {
+  word-break: break-all;
+}
+
