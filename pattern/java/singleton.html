@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Java Singleton Pattern Generator</title>
+  </head>
+  <body>
+    <div style="text-align:center;">
+      <div style="font-size:2em;font-weight:bold">Java Singleton Pattern Generator</div>
+      <div style="margin-top:1em">
+        <div>Class name</div>
+        <input type="text" id="input" style="width:20vw">
+      </div>
+      <div style="margin-top:1em">
+        <input type="button" value="Early" onclick="generateEarly()"><span style="width:2em"></span>
+        <input type="button" value="Lazy" onclick="generateLazy()"><span style="width:2em"></span>
+        <input type="button" value="Enum" onclick="generateEnum()"><span style="width:2em"></span>
+      </div>
+      <div style="margin-top:1em">
+        <div>Output singleton class</div>
+        <textarea id="output" style="width:40vw;height:55vh" readonly></textarea>
+      </div>
+    </div>
+    <script>
+      function generateEarly() {
+        var className = document.getElementById("input").value;
+        document.getElementById("output").value = "public class " + className + " {\n  private static final " + className + " INSTANCE = new " + className + "();\n\n  public static " + className + " getInstance() {\n    return INSTANCE;\n  }\n}";
+      }
+      function generateLazy() {
+        var className = document.getElementById("input").value;
+        document.getElementById("output").value = "public class " + className + " {\n  private static class InstanceHolder {\n    private static final " + className + " INSTANCE = new " + className + "();\n  }\n\n  public static " + className + " getInstance() {\n    return InstanceHolder.INSTANCE;\n  }\n}";
+      }
+      function generateEnum() {
+        var className = document.getElementById("input").value;
+        document.getElementById("output").value = "public enum " + className + " {\n  INSTANCE;\n}";
+      }
+    </script>
+  </body>
+</html>
