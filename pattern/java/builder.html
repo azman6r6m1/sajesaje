@@ -1,12 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <title>Java Builder Pattern Generator</title>
+  </head>
   <body>
-    <div id="input"><textarea></textarea></div>
-    <div><input type="button" value="Generate" onclick="generate()"></div>
-    <div id="output"></div>
+    <div style="text-align:center;">
+      <div style="font-size:2em;font-weight:bold">Java Builder Pattern Generator</div>
+      <div style="margin-top:1em">
+        <div>Input class and variables</div>
+        <textarea id="input" style="width:40vw;height:20vh"></textarea>
+      </div>
+      <div style="margin-top:1em">
+        <input type="button" value="Generate" onclick="generate()">
+      </div>
+      <div style="margin-top:1em">
+        <div>Output builder class</div>
+        <textarea id="output" style="width:40vw;height:55vh" readonly></textarea>
+      </div>
+    </div>
     <script>
-    
+      function generate() {
+        var lines = document.getElementById("input").value.split("\n");
+        var className = lines[0].split(" ")[2];
+        var builderClassName = className + "Builder";
+        var vars = [];
+        for (var i = 1; i < lines.length; i++) {
+          var line = lines[i].trim().replace(";","");
+          if (line.startsWith("private")) {
+            var req = false;
+            if (line.endsWith("//req")) req = true;
+            var varInfo = line.split(" ");
+            var v = {"type": varInfo[1], "name": varInfo[2], "req": req};
+            vars.push(v);
+          }
+        }
+        var output = "public class " + className + " {\n";
+        for (var i = 0; i < vars.length; i++) output += "  private " + vars[i].type + " " + vars[i].name + ";\n";
+        output += "\n  private " + className + "(" + builderClassName + " builder) {\n";
+        for (var i = 0; i < vars.length; i++) output += "    " + vars[i].name + " = builder." + vars[i].name + ";\n";
+        output += "  }\n\n";
+        for (var i = 0; i < vars.length; i++) output += "  public " + vars[i].type + " " + vars[i].name + "() {\n    return " + vars[i].name + ";\n  }\n\n";
+        output += "  public static " + builderClassName + " builder(";
+        var first = true;
+        for (var i = 0; i < vars.length; i++) {
+          if (vars[i].req) {
+            if (!first) output += ", ";
+            output += vars[i].type + " " + vars[i].name;
+            first = false;
+          }
+        }
+        output += ") {\n    return new " + builderClassName + "(";
+        first = true;
+        for (var i = 0; i < vars.length; i++) {
+          if (vars[i].req) {
+            if (!first) output += ", ";
+            output += vars[i].name;
+            first = false;
+          }
+        }
+        output += ");\n  }\n\n  public static class " + builderClassName + " {\n";
+        for (var i = 0; i < vars.length; i++) output += "    private " + vars[i].type + " " + vars[i].name + ";\n";
+        output += "\n    private " + builderClassName + "(";
+        first = true;
+        for (var i = 0; i < vars.length; i++) {
+          if (vars[i].req) {
+            if (!first) output += ", ";
+            output += vars[i].type + " " + vars[i].name;
+            first = false;
+          }
+        }
+        output += ") {\n";
+        first = true;
+        for (var i = 0; i < vars.length; i++) if (vars[i].req) output += "      this." + vars[i].name + " = " + vars[i].name + ";\n";
+        output += "    }\n\n";
+        for (var i = 0; i < vars.length; i++) if (!vars[i].req) output += "    public " + builderClassName + " " + vars[i].name + "(" + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
+        output += "    public " + className + " build() {\n      return new " + className + "(this);\n    }\n  }\n}\n"
+        document.getElementById("output").value = output;
+      }
     </script>
   </body>
 </html>
