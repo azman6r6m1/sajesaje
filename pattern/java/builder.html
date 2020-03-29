@@ -50,16 +50,16 @@
         output += "  }\n\n";
         for (var i = 0; i < vars.length; i++) {
           var returnVar = vars[i].name;
-          if (vars[i].type.startsWith("List") {
+          if (vars[i].type.startsWith("List")) {
             returnVar = "Collections.unmodifiableList(" + returnVar + ")";
           }
-          else if (vars[i].type.startsWith("Set") {
+          else if (vars[i].type.startsWith("Set")) {
             returnVar = "Collections.unmodifiableSet(" + returnVar + ")";
           }
-          else if (vars[i].type.startsWith("Map") {
+          else if (vars[i].type.startsWith("Map")) {
             returnVar = "Collections.unmodifiableMap(" + returnVar + ")";
           }
-          else if (vars[i].type.startsWith("Collection") {
+          else if (vars[i].type.startsWith("Collection")) {
             returnVar = "Collections.unmodifiableCollection(" + returnVar + ")";
           }
           output += "  public " + vars[i].type + " " + vars[i].name + "() {\n    return " + returnVar + ";\n  }\n\n";
@@ -85,13 +85,13 @@
         output += ");\n  }\n\n  public static class " + builderClassName + " {\n";
         for (var i = 0; i < vars.length; i++) {
           var newInstance = "";
-          if (vars[i].type.startsWith("List") {
+          if (vars[i].type.startsWith("List")) {
             newInstance = " = new ArrayList<>()";
           }
-          else if (vars[i].type.startsWith("Set") {
+          else if (vars[i].type.startsWith("Set")) {
             newInstance = " = new HashSet<>()";
           }
-          else if (vars[i].type.startsWith("Map") {
+          else if (vars[i].type.startsWith("Map")) {
             newInstance = " = new HashMap<>()";
           }
           output += "    private " + vars[i].type + " " + vars[i].name + newInstance + ";\n";
