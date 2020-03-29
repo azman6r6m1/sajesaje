@@ -35,7 +35,7 @@
           }
         }
         var output = "public class " + className + " {\n";
-        for (var i = 0; i < vars.length; i++) output += "  private " + vars[i].type + " " + vars[i].name + ";\n";
+        for (var i = 0; i < vars.length; i++) output += "  private final " + vars[i].type + " " + vars[i].name + ";\n";
         output += "\n  private " + className + "(" + builderClassName + " builder) {\n";
         for (var i = 0; i < vars.length; i++) output += "    " + vars[i].name + " = builder." + vars[i].name + ";\n";
         output += "  }\n\n";
