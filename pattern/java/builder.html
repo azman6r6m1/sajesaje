@@ -22,7 +22,7 @@
       function generate() {
         var lines = document.getElementById("input").value.split("\n");
         var className = lines[0].split(" ")[2];
-        var builderClassName = className + "Builder";
+        var builderClassName = "Builder";
         var vars = [];
         for (var i = 1; i < lines.length; i++) {
           var line = lines[i].trim().replace(";","");
