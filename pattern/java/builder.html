@@ -115,6 +115,17 @@
         output += "    }\n\n";
         for (var i = 0; i < vars.length; i++) {
           if (!vars[i].req) {
+            if (vars[i].type.startsWith("List") || vars[i].type.startsWith("Set")) {
+              var elementType = vars[i].type.substring(vars[i].type.indexOf("<") + 1, vars[i].type.indexOf(">"));
+              output += "    public " + builderClassName + " add" + vars[i].name + "(final " + elementType + " element) {\n      " + vars[i].name + ".add(element);\n      return this;\n    }\n\n";
+              output += "    public " + builderClassName + " add" + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + ".addAll(" + vars[i].name + ");\n      return this;\n    }\n\n";
+            }
+            else if (vars[i].type.startsWith("Map")) {
+              var keyType = vars[i].type.substring(vars[i].type.indexOf("<") + 1, vars[i].type.indexOf(","));
+              var valueType = vars[i].type.substring(vars[i].type.indexOf(",") + 1, vars[i].type.indexOf(">"));
+              output += "    public " + builderClassName + " add" + vars[i].name + "(final " + keyType + " key, final " + valueType + "value) {\n      " + vars[i].name + ".put(key, value);\n      return this;\n    }\n\n";
+              output += "    public " + builderClassName + " add" + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + ".putAll(" + vars[i].name + ");\n      return this;\n    }\n\n";
+            }
             output += "    public " + builderClassName + " " + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
           }
         }
