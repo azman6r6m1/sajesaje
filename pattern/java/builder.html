@@ -39,7 +39,7 @@
         }
         var output = "public class " + className + " {\n";
         for (var i = 0; i < vars.length; i++) output += "  private final " + vars[i].type + " " + vars[i].name + ";\n";
-        output += "\n  private " + className + "(" + builderClassName + " builder) {\n";
+        output += "\n  private " + className + "(final " + builderClassName + " builder) {\n";
         for (var i = 0; i < vars.length; i++) output += "    " + vars[i].name + " = builder." + vars[i].name + ";\n";
         output += "  }\n\n";
         for (var i = 0; i < vars.length; i++) output += "  public " + vars[i].type + " " + vars[i].name + "() {\n    return " + vars[i].name + ";\n  }\n\n";
@@ -76,7 +76,7 @@
         first = true;
         for (var i = 0; i < vars.length; i++) if (vars[i].req) output += "      this." + vars[i].name + " = " + vars[i].name + ";\n";
         output += "    }\n\n";
-        for (var i = 0; i < vars.length; i++) if (!vars[i].req) output += "    public " + builderClassName + " " + vars[i].name + "(" + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
+        for (var i = 0; i < vars.length; i++) if (!vars[i].req) output += "    public " + builderClassName + " " + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
         output += "    public " + className + " build() {\n      return new " + className + "(this);\n    }\n  }\n}\n"
         document.getElementById("output").value = output;
       }
