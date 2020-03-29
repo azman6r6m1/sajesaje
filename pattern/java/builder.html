@@ -28,7 +28,9 @@
           var line = lines[i].trim().replace(";","");
           if (line.startsWith("private")) {
             var req = false;
-            if (line.endsWith("//req")) req = true;
+            if (line.endsWith("//req")) {
+              req = true;
+            }
             var varInfo = line.split(" ");
             var v = {"type": varInfo[1], "name": varInfo[2], "req": req};
             if (v.type == "final") {
@@ -38,9 +40,13 @@
           }
         }
         var output = "public class " + className + " {\n";
-        for (var i = 0; i < vars.length; i++) output += "  private final " + vars[i].type + " " + vars[i].name + ";\n";
+        for (var i = 0; i < vars.length; i++) {
+          output += "  private final " + vars[i].type + " " + vars[i].name + ";\n";
+        }
         output += "\n  private " + className + "(final " + builderClassName + " builder) {\n";
-        for (var i = 0; i < vars.length; i++) output += "    " + vars[i].name + " = builder." + vars[i].name + ";\n";
+        for (var i = 0; i < vars.length; i++) {
+          output += "    " + vars[i].name + " = builder." + vars[i].name + ";\n";
+        }
         output += "  }\n\n";
         for (var i = 0; i < vars.length; i++) {
           var returnVar = vars[i].name;
@@ -101,9 +107,17 @@
         }
         output += ") {\n";
         first = true;
-        for (var i = 0; i < vars.length; i++) if (vars[i].req) output += "      this." + vars[i].name + " = " + vars[i].name + ";\n";
+        for (var i = 0; i < vars.length; i++) {
+          if (vars[i].req) {
+            output += "      this." + vars[i].name + " = " + vars[i].name + ";\n";
+          }
+        }
         output += "    }\n\n";
-        for (var i = 0; i < vars.length; i++) if (!vars[i].req) output += "    public " + builderClassName + " " + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
+        for (var i = 0; i < vars.length; i++) {
+          if (!vars[i].req) {
+            output += "    public " + builderClassName + " " + vars[i].name + "(final " + vars[i].type + " " + vars[i].name + ") {\n      this." + vars[i].name + " = " + vars[i].name + ";\n      return this;\n    }\n\n";
+          }
+        }
         output += "    public " + className + " build() {\n      return new " + className + "(this);\n    }\n  }\n}\n"
         document.getElementById("output").value = output;
       }
