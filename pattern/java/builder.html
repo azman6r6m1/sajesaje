@@ -31,6 +31,9 @@
             if (line.endsWith("//req")) req = true;
             var varInfo = line.split(" ");
             var v = {"type": varInfo[1], "name": varInfo[2], "req": req};
+            if (v.type == "final") {
+              v = {"type": varInfo[2], "name": varInfo[3], "req": req};
+            }
             vars.push(v);
           }
         }
