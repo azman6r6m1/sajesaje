@@ -23,11 +23,11 @@
     <script>
       function generateEarly() {
         var className = document.getElementById("input").value;
-        document.getElementById("output").value = "public class " + className + " {\n  private static final " + className + " INSTANCE = new " + className + "();\n\n  public static " + className + " getInstance() {\n    return INSTANCE;\n  }\n}";
+        document.getElementById("output").value = "public class " + className + " {\n  private static final " + className + " INSTANCE = new " + className + "();\n\n  public static " + className + " getInstance() {\n    return INSTANCE;\n  }\n\n  private " + className + "() {}\n}";
       }
       function generateLazy() {
         var className = document.getElementById("input").value;
-        document.getElementById("output").value = "public class " + className + " {\n  private static class InstanceHolder {\n    private static final " + className + " INSTANCE = new " + className + "();\n  }\n\n  public static " + className + " getInstance() {\n    return InstanceHolder.INSTANCE;\n  }\n}";
+        document.getElementById("output").value = "public class " + className + " {\n  private static class InstanceHolder {\n    private static final " + className + " INSTANCE = new " + className + "();\n  }\n\n  public static " + className + " getInstance() {\n    return InstanceHolder.INSTANCE;\n  }\n\n  private " + className + "() {}\n}";
       }
       function generateEnum() {
         var className = document.getElementById("input").value;
