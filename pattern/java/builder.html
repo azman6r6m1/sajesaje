@@ -64,7 +64,21 @@
           }
           output += "  public " + vars[i].type + " " + vars[i].name + "() {\n    return " + returnVar + ";\n  }\n\n";
         }
-        output += "  public static " + builderClassName + " builder(";
+        
+        output += "  @Override\n  public String toString() {\n    return \"" + className + " [";
+        
+        for (var i = 0; i < vars.length; i++) {
+          var tempName = vars[i].name;
+          if (vars[i].type.endsWith("[]")) {
+            tempName = "Arrays.toString(" + tempName + ")";
+          }
+          output += vars[i].name + "=\" + " + tempName;
+          if (i != vars.length - 1) {
+            output += " + \", ";
+          }
+        }
+        
+        output += " + \"]\";\n  }\n\n  public static " + builderClassName + " builder(";
         var first = true;
         for (var i = 0; i < vars.length; i++) {
           if (vars[i].req) {
